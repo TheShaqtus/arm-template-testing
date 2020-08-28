@@ -1,0 +1,1 @@
+Get-AzResourceGroup -Name rg-volleyballIntegrationTesting | Remove-AzResourceGroup -Force

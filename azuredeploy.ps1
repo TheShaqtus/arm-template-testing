@@ -7,5 +7,3 @@ New-AzResourceGroupDeployment `
     -ResourceGroupName rg-volleyballIntegrationTesting `
     -TemplateFile "azuredeploy.json" `
     -TemplateParameterFile "azuredeploy.parameters.json"
-
-#Get-AzResourceGroup -Name rg-volleyballIntegrationTesting | Remove-AzResourceGroup -Force

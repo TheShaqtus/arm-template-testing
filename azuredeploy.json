@@ -53,9 +53,9 @@
         }
     },
     "variables": {
-        "hostingPlanName": "[concat('hostingplan', uniqueString(resourceGroup().name))]",
-        "webSiteName": "[concat('webSite', uniqueString(resourceGroup().name))]",
-        "sqlserverName": "[concat('sqlserver', uniqueString(resourceGroup().name))]",
+        "hostingPlanName": "[concat('plan-', toLower(skip(resourceGroup().name, 3)))]",
+        "webSiteName": "[concat('app-', toLower(skip(resourceGroup().name, 3)))]",
+        "sqlserverName": "[concat('sql-', toLower(skip(resourceGroup().name, 3)))]",
         "databaseName": "Volleyball"
     },
     "resources": [
