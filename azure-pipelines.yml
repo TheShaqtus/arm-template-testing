@@ -1,0 +1,99 @@
+pool:
+    name: Azure Pipelines
+
+variables:
+    ResourceGroupName: "volleyballIntegrationTesting"
+    BuildConfiguration: "Release"
+    RestoreBuildProjects: "**/*.csproj"
+    UnitTestProjects: >
+        "**/*.[Tt]ests.csproj"
+        "!**/*.Integration.[Tt]ests.csproj"
+    IntegrationTestProjects: "**/*.Integration.[Tt]ests.csproj"
+
+steps:
+    - task: DotNetCoreCLI@2
+      displayName: Restore
+      inputs:
+          command: restore
+          projects: "$(RestoreBuildProjects)"
+
+    - task: DotNetCoreCLI@2
+      displayName: Build
+      inputs:
+          projects: "$(RestoreBuildProjects)"
+          arguments: "--configuration $(BuildConfiguration)"
+
+    - task: DotNetCoreCLI@2
+      displayName: Test
+      inputs:
+          command: test
+          projects: "$(UnitTestProjects)"
+          arguments: "--configuration $(BuildConfiguration)"
+
+    - task: DotNetCoreCLI@2
+      displayName: Publish
+      inputs:
+          command: publish
+          publishWebProjects: True
+          arguments: "--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)"
+          zipAfterPublish: True
+
+    - task: AzureResourceManagerTemplateDeployment@3
+      displayName: "Create Integration Environment"
+      inputs:
+          azureResourceManagerConnection: "Adam's Visual Studio Enterprise Subscription (73a0b967-438a-4e03-9b59-1f699a6e3e22)"
+          subscriptionId: "73a0b967-438a-4e03-9b59-1f699a6e3e22"
+          resourceGroupName: "rg-volleyballIntegrationTesting"
+          location: "Central US"
+          csmFile: azuredeploy.json
+          csmParametersFile: azuredeploy.parameters.json
+          deploymentMode: Complete
+          deploymentName: "integrationTestingDeploy-$(Build.BuildNumber)"
+
+    - task: AzurePowerShell@5
+      displayName: "Create Integration Environment"
+      inputs:
+          azureSubscription: "Adam's Visual Studio Enterprise Subscription (73a0b967-438a-4e03-9b59-1f699a6e3e22)"
+          ScriptPath: azuredeploy.ps1
+          azurePowerShellVersion: LatestVersion
+      enabled: false
+
+    - task: AzureRmWebAppDeployment@4
+      displayName: "Deploy Integration App Service"
+      inputs:
+          azureSubscription: "Adam's Visual Studio Enterprise Subscription (73a0b967-438a-4e03-9b59-1f699a6e3e22)"
+          WebAppName: "app-$(ResourceGroupName)"
+          packageForLinux: "$(build.artifactstagingdirectory)/**/*.zip"
+
+    - task: DotNetCoreCLI@2
+      displayName: "Integration Test"
+      inputs:
+          command: test
+          projects: "$(IntegrationTestProjects)"
+          arguments: "--configuration $(BuildConfiguration)"
+
+    - task: AzureResourceManagerTemplateDeployment@3
+      displayName: "Teardown Integration Environment"
+      inputs:
+          azureResourceManagerConnection: "Adam's Visual Studio Enterprise Subscription (73a0b967-438a-4e03-9b59-1f699a6e3e22)"
+          subscriptionId: "73a0b967-438a-4e03-9b59-1f699a6e3e22"
+          action: DeleteRG
+          resourceGroupName: "rg-volleyballIntegrationTesting"
+      enabled: false
+
+    - task: AzurePowerShell@5
+      displayName: "Teardown Integration Environment"
+      inputs:
+          azureSubscription: "Adam's Visual Studio Enterprise Subscription (73a0b967-438a-4e03-9b59-1f699a6e3e22)"
+          ScriptPath: azureteardown.ps1
+          errorActionPreference: continue
+          azurePowerShellVersion: LatestVersion
+      enabled: false
+      continueOnError: true
+      condition: always()
+
+    - task: PublishBuildArtifacts@1
+      displayName: "Publish Artifact"
+      inputs:
+          PathtoPublish: "$(build.artifactstagingdirectory)"
+      condition: succeededOrFailed()
