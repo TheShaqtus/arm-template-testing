@@ -53,14 +53,6 @@ steps:
           deploymentMode: Complete
           deploymentName: "integrationTestingDeploy-$(Build.BuildNumber)"
 
-    - task: AzurePowerShell@5
-      displayName: "Create Integration Environment"
-      inputs:
-          azureSubscription: "Adam's Visual Studio Enterprise Subscription (73a0b967-438a-4e03-9b59-1f699a6e3e22)"
-          ScriptPath: azuredeploy.ps1
-          azurePowerShellVersion: LatestVersion
-      enabled: false
-
     - task: AzureRmWebAppDeployment@4
       displayName: "Deploy Integration App Service"
       inputs:
@@ -82,18 +74,7 @@ steps:
           subscriptionId: "73a0b967-438a-4e03-9b59-1f699a6e3e22"
           action: DeleteRG
           resourceGroupName: "rg-volleyballIntegrationTesting"
-      enabled: false
-
-    - task: AzurePowerShell@5
-      displayName: "Teardown Integration Environment"
-      inputs:
-          azureSubscription: "Adam's Visual Studio Enterprise Subscription (73a0b967-438a-4e03-9b59-1f699a6e3e22)"
-          ScriptPath: azureteardown.ps1
-          errorActionPreference: continue
-          azurePowerShellVersion: LatestVersion
-      enabled: false
-      continueOnError: true
-      condition: always()
+      enabled: true
 
     - task: PublishBuildArtifacts@1
       displayName: "Publish Artifact"
