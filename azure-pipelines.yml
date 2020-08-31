@@ -1,6 +1,9 @@
 pool:
     name: Azure Pipelines
 
+trigger:
+- master
+
 variables:
     ResourceGroupName: "volleyballIntegrationTesting"
     BuildConfiguration: "Release"
