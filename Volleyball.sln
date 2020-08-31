@@ -3,7 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Volleyball", "Volleyball\Volleyball.csproj", "{D6234ACE-E542-4C1C-8B2C-39FA5DA32067}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volleyball", "Volleyball\Volleyball.csproj", "{D6234ACE-E542-4C1C-8B2C-39FA5DA32067}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Volleyball.Integration.Tests", "Volleyball.Integration.Tests\Volleyball.Integration.Tests.csproj", "{E67E5942-5ED5-478C-AD75-40349460DC15}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "~Solution Items", "~Solution Items", "{B06D2850-C0D4-434E-9D16-9C2D2ACF4A98}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		azuredeploy.json = azuredeploy.json
+		azuredeploy.parameters.json = azuredeploy.parameters.json
+		azuredeploy.ps1 = azuredeploy.ps1
+		azureteardown.ps1 = azureteardown.ps1
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +27,10 @@ Global
 		{D6234ACE-E542-4C1C-8B2C-39FA5DA32067}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6234ACE-E542-4C1C-8B2C-39FA5DA32067}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6234ACE-E542-4C1C-8B2C-39FA5DA32067}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E67E5942-5ED5-478C-AD75-40349460DC15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E67E5942-5ED5-478C-AD75-40349460DC15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E67E5942-5ED5-478C-AD75-40349460DC15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E67E5942-5ED5-478C-AD75-40349460DC15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
