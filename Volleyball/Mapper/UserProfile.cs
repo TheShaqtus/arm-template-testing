@@ -10,6 +10,7 @@ namespace Volleyball.Mapper
         {
             CreateMap<UserModel, User>();
             CreateMap<User, UserModel>();
+            CreateMap<CreateUserModel, User>().ForMember(u => u.Id, opt => opt.Ignore());
         }
     }
 }
