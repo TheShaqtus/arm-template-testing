@@ -12,9 +12,6 @@ namespace Volleyball.Integration.Tests
     [TestClass]
     public class UserControllerTests
     {
-        //private const string BaseUrl = "https://localhost:44386/api";
-        private const string BaseUrl = "https://app-volleyballintegrationtesting.azurewebsites.net/api";
-
         [TestMethod]
         public async Task Post()
         {
@@ -24,14 +21,14 @@ namespace Volleyball.Integration.Tests
             
             var content = new StringContent(JsonConvert.SerializeObject(newUser), Encoding.UTF8, "application/json");
             var result = await client.PostAsync(
-                    $"{BaseUrl}/users",
+                    $"{Initialize.Configuration["BaseUrl"]}/users",
                     content)
                 .ConfigureAwait(false);
 
             Assert.IsTrue(result.IsSuccessStatusCode);
 
             var getResults = await client
-                .GetAsync($"{BaseUrl}/users")
+                .GetAsync($"{Initialize.Configuration["BaseUrl"]}/users")
                 .ConfigureAwait(false);
 
             var users = JsonConvert.DeserializeObject<List<UserModel>>(
