@@ -2,7 +2,7 @@ pool:
     vmImage: windows-2019
 
 trigger:
-- master
+    - master
 
 variables:
     ResourceGroupName: "volleyballIntegrationTesting"
@@ -75,6 +75,7 @@ steps:
           action: DeleteRG
           resourceGroupName: "rg-volleyballIntegrationTesting"
       enabled: true
+      condition: always()
 
     - task: PublishBuildArtifacts@1
       displayName: "Publish Artifact"
