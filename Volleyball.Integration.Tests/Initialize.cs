@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.IO;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Volleyball.Integration.Tests
@@ -11,7 +12,9 @@ namespace Volleyball.Integration.Tests
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext context)
         {
-            var config = new ConfigurationBuilder().AddJsonFile(
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile(
                 "appsettings.json",
                 optional: false,
                 reloadOnChange: false);
