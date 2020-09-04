@@ -2,7 +2,7 @@ pool:
     vmImage: windows-2019
 
 trigger:
-    - master
+    - main
 
 variables:
     ResourceGroupName: "volleyballIntegrationTesting"
