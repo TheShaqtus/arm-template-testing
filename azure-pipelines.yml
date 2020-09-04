@@ -65,7 +65,7 @@ steps:
       inputs:
           command: test
           projects: "$(IntegrationTestProjects)"
-          arguments: "--configuration $(BuildConfiguration) --settings Integration.runsettings"
+          arguments: "--configuration $(BuildConfiguration) --settings Volleyball.Integration.Tests/Integration.runsettings"
 
     - task: AzureResourceManagerTemplateDeployment@3
       displayName: "Teardown Integration Environment"
