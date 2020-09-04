@@ -13,9 +13,8 @@ namespace Volleyball.Integration.Tests
         public static void AssemblyInitialize(TestContext context)
         {
             var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile(
-                "appsettings.json",
+                "appsettings.testing.json",
                 optional: false,
                 reloadOnChange: false);
             Configuration = config.Build();
