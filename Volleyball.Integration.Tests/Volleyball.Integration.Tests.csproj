@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RunSettingsFilePath>$(MSBuildProjectDirectory)\Local.runsettings</RunSettingsFilePath>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ApprovalTests" Version="5.4.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.7" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
@@ -19,6 +19,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Volleyball\Volleyball.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Sql\ClearDB.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Sql\CreateTestData.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

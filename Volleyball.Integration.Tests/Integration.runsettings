@@ -2,6 +2,6 @@
 <RunSettings>
   <TestRunParameters>
     <Parameter name="apiUrl" value="https://app-volleyballintegrationtesting.azurewebsites.net/api" />
-    <Parameter name="connectionString" value="Data Source=tcp:sql-volleyballintegrationtesting,1433;Initial Catalog=Volleyball;;User Id=IntegrationTesting;Password=PshJustShipIt7" />
+    <Parameter name="connectionString" value="Server=tcp:sql-volleyballintegrationtesting.database.windows.net,1433;Initial Catalog=Volleyball;Persist Security Info=False;User ID=IntegrationTesting;Password=PshJustShipIt7;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" />
   </TestRunParameters>
 </RunSettings>
